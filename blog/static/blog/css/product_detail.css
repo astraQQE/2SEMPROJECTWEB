@@ -1,53 +1,4 @@
-/* blog/static/blog/css/styles.css */
-body {
-    font-family: Arial, sans-serif;
-}
-
-.card {
-    margin-bottom: 1rem;
-}
-
-.card-img-top {
-    height: 200px;
-    object-fit: cover;
-}
-
-.card-body {
-    padding: 1rem;
-}
-
-.card-title {
-    margin-bottom: 0.5rem;
-}
-
-.card-text {
-    margin-bottom: 1rem;
-}
-
-.btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #0056b3;
-}
-
-.card {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-}
-
-.card:hover {
-    transform: scale(1.05);
-}
-
+/* blog/static/blog/css/product_detail.css */
 .site-header {
     background: linear-gradient(to right, #007bff, #0056b3); /* Градиентный фон */
     color: white;
@@ -126,7 +77,9 @@ body {
     display: flex;
     gap: 0.5rem;
 }
-
+.row{
+    padding: 20px;
+}
 .search-form input {
     padding: 0.5rem;
     border: 1px solid #ccc;
@@ -155,41 +108,64 @@ body {
     background-color: #0056b3; /* Темнее при наведении */
     transform: scale(1.05); /* Небольшое увеличение */
 }
-
-
-
-footer {
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+.product-detail {
+    margin-top: 2rem;
 }
 
-
-/* blog/static/blog/css/styles.css */
-.product-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem; /* Расстояние между карточками */
-}
-
-.product-card {
-    flex: 1 1 calc(33.33% - 1rem); /* Устанавливаем ширину карточек */
-    max-width: 300px; 
-    border: 1px solid #ccc;
-    padding: 1rem;
-    text-align: center;
-    border-radius: 20px;
-}
-
-.product-card img {
+.product-detail img {
+    max-width: 100%;
     height: auto;
-    max-height: 200px; /* Ограничиваем высоту изображения */
+    border-radius: 10px;
 }
 
-.product-card h5 {
+.product-info {
+    margin-top: 1rem;
+}
+
+.product-info h1 {
+    font-size: 2rem;
     margin-bottom: 0.5rem;
 }
 
-.product-card p {
+.product-info p {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.review-card {
+    border: 1px solid #ddd;
+    padding: 1rem;
     margin-bottom: 1rem;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.similar-products {
+    margin-top: 2rem;
+}
+
+.similar-products .card {
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.similar-products .card:hover {
+    transform: scale(1.05);
+}
+
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
 }

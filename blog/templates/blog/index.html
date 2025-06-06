@@ -33,7 +33,7 @@
             </nav>
         </div>
     </header>
-
+    {% block content %}
     <!-- Основной контент -->
     <div class="container mt-4">
         <!-- Виджет 1: Популярные товары -->
@@ -45,7 +45,7 @@
                         <img src="{{ product.image.url }}" alt="{{ product.name }}">
                         <h5>{{ product.name }}</h5>
                         <p>{{ product.brand }} | {{ product.price }} руб.</p>
-                        <a href="#" class="btn">Подробнее</a>
+                        <a href="{% url 'product_detail' product.id %}" class="btn btn-primary">Подробнее</a>
                     </div>
                 {% endfor %}
             </div>
@@ -97,7 +97,7 @@
                 {% endfor %}
             </div>
     </div>
-
+    {% endblock %}
     <!-- Подвал -->
     <!-- <footer class="bg-light text-center p-3 mt-5">
         <p>© 2025 Магазин одежды. Все права защищены.</p>
