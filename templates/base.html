@@ -1,0 +1,49 @@
+<!-- mysite/templates/base.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мой магазин{% endblock %}</title>
+    {% block extra_head %}{% endblock %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <nav class="navbar">
+                <ul class="navbar-nav">
+                    <li><a href="{% url 'home' %}">Главная</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">Категории</a>
+                        <ul class="dropdown-menu">
+                            {% for category in categories %}
+                                <li><a href="{% url 'category_detail' category.id %}">{{ category.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'favorites' %}">Избранное</a></li>
+                    {% if user.is_staff %}
+                        <li><a href="{% url 'add_product' %}" class="btn btn-primary">Добавить товар</a></li>
+                    {% endif %}
+                </ul>
+                <form class="search-form" method="GET" action="{% url 'search' %}">
+                    <input type="text" name="q" placeholder="Поиск товаров..." required>
+                    <button type="submit">Найти</button>
+                </form>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mt-4">
+        {% block content %}
+        <!-- Содержимое страницы будет подставляться здесь -->
+        {% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2025 Магазин одежды. Все права защищены.</p>
+    </footer>
+</body>
+</html>

@@ -26,13 +26,31 @@ def home(request):
         'top_rated_products': top_rated_products,
     })
 
+
+
+# blog/views.py
+from django.shortcuts import render
+from .models import Product
+
+# blog/views.py
+from django.contrib.postgres.search import TrigramSimilarity
+
+# blog/views.py
+from django.shortcuts import render
+from .models import Product
+
 def search(request):
     query = request.GET.get('q')
+    results = []
+
     if query:
-        results = Product.objects.filter(name__icontains=query)
-    else:
-        results = []
-    return render(request, 'blog/search.html', {'results': results})
+        # Точное совпадение (регистронезависимое)
+        results = Product.objects.filter(name__iexact=query)
+
+    return render(request, 'blog/search_results.html', {
+        'query': query,
+        'results': results,
+    })
 def category_detail(request, category_id):
     # Логика для отображения товаров категории
     pass
@@ -82,3 +100,11 @@ def add_to_favorites(request, product_id):
     # Здесь предполагается, что у модели User есть связь с избранными товарами
 
     return redirect('product_detail', product_id=product.id)
+
+# blog/views.py
+from django.shortcuts import render
+from .models import Post  # Импортируйте модель Post
+
+def post_list(request):
+    posts = Post.objects.all()  # Получаем все посты
+    return render(request, 'blog/post/list.html', {'posts': posts})

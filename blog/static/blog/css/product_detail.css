@@ -1,4 +1,7 @@
 /* blog/static/blog/css/product_detail.css */
+
+
+/* Общие стили для шапки */
 .site-header {
     background: linear-gradient(to right, #007bff, #0056b3); /* Градиентный фон */
     color: white;
@@ -77,9 +80,7 @@
     display: flex;
     gap: 0.5rem;
 }
-.row{
-    padding: 20px;
-}
+
 .search-form input {
     padding: 0.5rem;
     border: 1px solid #ccc;
@@ -108,18 +109,34 @@
     background-color: #0056b3; /* Темнее при наведении */
     transform: scale(1.05); /* Небольшое увеличение */
 }
+
+/* Стили для детальной страницы товара */
 .product-detail {
     margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap; /* Разрешаем перенос на следующую строку */
+    gap: 2rem; /* Расстояние между колонками */
 }
 
-.product-detail img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
+.product-image-container {
+    flex: 1 1 40%; /* Ширина контейнера с изображением */
+    max-width: 400px; /* Максимальная ширина */
+    margin: 0 auto; /* Центрируем контейнер */
+}
+
+.product-image {
+    width: 100%; /* Изображение занимает всю ширину контейнера */
+    height: auto; /* Пропорциональная высота */
+    aspect-ratio: 1 / 1; /* Сохраняем квадратное соотношение сторон */
+    object-fit: cover; /* Обрезаем изображение, если нужно */
+    border-radius: 10px; /* Закругленные углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для объема */
 }
 
 .product-info {
-    margin-top: 1rem;
+    flex: 1 1 50%; /* Ширина контейнера с информацией */
+    max-width: 600px; /* Максимальная ширина */
+    margin: 0 auto; /* Центрируем контейнер */
 }
 
 .product-info h1 {
@@ -130,6 +147,35 @@
 .product-info p {
     font-size: 1.2rem;
     color: #333;
+    margin-bottom: 1rem;
+}
+
+.btn-secondary {
+    background-color: #356895;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+}
+.btn-danger {
+    background-color: #8a1635;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
 }
 
 .review-card {
@@ -140,6 +186,39 @@
     background-color: #f9f9f9;
 }
 
+.similar-products {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; /* Расстояние между карточками товаров */
+}
+
+.similar-products .card {
+    flex: 1 1 calc(33.33% - 1rem); /* Ширина карточек */
+    max-width: 300px; /* Максимальная ширина карточки */
+    border: 1px solid #ccc;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для объема */
+    transition: transform 0.3s ease;
+}
+
+.similar-products .card:hover {
+    transform: scale(1.05);
+}
+
+.similar-products .card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1; /* Квадратное изображение */
+    object-fit: cover; /* Обрезаем изображение */
+    border-radius: 10px;
+}
+
+/* blog/static/blog/css/product_detail.css */
+
+/* Стили для похожих товаров */
 .similar-products {
     margin-top: 2rem;
 }
@@ -153,19 +232,10 @@
     transform: scale(1.05);
 }
 
-
-.btn-secondary {
-    background-color: #6c757d;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-secondary:hover {
-    background-color: #5a6268;
+.similar-products .card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1; /* Сохраняем квадратное соотношение сторон */
+    object-fit: cover; /* Обрезаем изображение, если нужно */
+    border-radius: 10px;
 }
