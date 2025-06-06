@@ -1,11 +1,88 @@
-body {
-    font-family: Arial, sans-serif;
+/* blog/static/blog/css/styles.css */
+.site-header {
+    background-color: #333;
+    color: white;
+    padding: 1rem 0;
 }
 
-header {
-    margin-bottom: 2rem;
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
+.navbar-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+}
+
+.navbar-nav li {
+    position: relative;
+}
+
+.navbar-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    display: block;
+}
+
+.navbar-nav a:hover {
+    background-color: #555;
+    border-radius: 5px;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    color: black;
+    padding: 0.5rem 0;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu li {
+    padding: 0.5rem 1rem;
+}
+
+.dropdown-menu li a {
+    color: black;
+    text-decoration: none;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.search-form {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.search-form input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-form button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-form button:hover {
+    background-color: #0056b3;
+}
 .card {
     margin-bottom: 1rem;
 }
@@ -15,8 +92,79 @@ header {
     object-fit: cover;
 }
 
+.card-body {
+    padding: 1rem;
+}
+
+.card-title {
+    margin-bottom: 0.5rem;
+}
+
+.card-text {
+    margin-bottom: 1rem;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+
+
+header {
+    margin-bottom: 2rem;
+}
+
 footer {
     position: fixed;
     width: 100%;
     bottom: 0;
+}
+
+
+/* blog/static/blog/css/styles.css */
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; /* Расстояние между карточками */
+}
+
+.product-card {
+    flex: 1 1 calc(33.33% - 1rem); /* Устанавливаем ширину карточек */
+    max-width: 300px; 
+    border: 1px solid #ccc;
+    padding: 1rem;
+    text-align: center;
+}
+
+.product-card img {
+    height: auto;
+    max-height: 200px; /* Ограничиваем высоту изображения */
+}
+
+.product-card h5 {
+    margin-bottom: 0.5rem;
+}
+
+.product-card p {
+    margin-bottom: 1rem;
 }

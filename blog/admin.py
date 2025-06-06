@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from .models import (
     User, Category, Brand, Product, Order, OrderProduct,
-    Review
+    Review,Advertisement
 )
 
 @admin.register(User)
@@ -40,9 +40,17 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'total_amount', 'status', 'created_at')
     list_filter = ('status', 'created_at')
     search_fields = ('user__username', 'id')
+    filter_horizontal = ('products',)
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('product', 'user', 'rating', 'created_at')
     list_filter = ('rating', 'created_at')
     search_fields = ('product__name', 'user__username')
+@admin.register(Advertisement)
+class AdvertisementAdmin(admin.ModelAdmin):
+    list_display = ('title', 'description', 'status', 'start_date', 'end_date')
+    list_filter = ('status', 'start_date', 'end_date')
+    search_fields = ('title', 'description')
+    date_hierarchy = 'start_date'  # Добавляет иерархию по датам
+    list_editable = ('status',)

@@ -120,6 +120,7 @@ class Order(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending', verbose_name=_('Статус'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Дата создания'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Дата изменения'))
+    products = models.ManyToManyField(Product)  # ManyToManyField
 
     def __str__(self):
         return f"Заказ #{self.id} от {self.user.username}"
