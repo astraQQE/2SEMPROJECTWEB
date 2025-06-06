@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин одежды</title>
+    {% load static %}
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"  rel="stylesheet"> -->
+    <link rel="stylesheet" href="{% static 'blog/css/styles.css' %}">
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="bg-dark text-white p-4">
+        <div class="container">
+            <h1>Магазин модной одежды</h1>
+            <form class="d-flex mt-3" method="GET" action="{% url 'search' %}">
+                <input class="form-control me-2" type="search" placeholder="Поиск товаров..." name="q">
+                <button class="btn btn-outline-light" type="submit">Найти</button>
+            </form>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <div class="container mt-4">
+        <div class="row mb-4">
+            <h3>Популярные товары</h3>
+            {% for product in popular_products %}
+                <div class="col-md-4">
+                    <div class="card">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                        {% else %}
+                            <img src="{% static 'blog/images/default_product.jpg' %}" alt="{{ product.name }}" class="card-img-top">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5>{{ product.name }}</h5>
+                            <p>{{ product.brand }} | {{ product.price }} руб.</p>
+                            <a href="#" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Виджет 2: Последние обзоры -->
+        <div class="row mb-4">
+            <h3>Последние обзоры</h3>
+            {% for review in latest_reviews %}
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>{{ review.product.name }}</h5>
+                            <p>{{ review.text|truncatewords:20 }}</p>
+                            <small>Рейтинг: {{ review.rating }}/5 | {{ review.created_at }}</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Виджет 3: Активные акции -->
+        <div class="row">
+            <h3>Акции</h3>
+            {% for ad in active_ads %}
+                <div class="col-md-12 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>{{ ad.title }}</h5>
+                            <p>{{ ad.description }}</p>
+                            <small>Активно до: {{ ad.end_date }}</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Подвал -->
+    <footer class="bg-light text-center p-3 mt-5">
+        <p>© 2025 Магазин одежды. Все права защищены.</p>
+    </footer>
+</body>
+</html>

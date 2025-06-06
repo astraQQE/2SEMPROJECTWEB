@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    margin-bottom: 2rem;
+}
+
+.card {
+    margin-bottom: 1rem;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}

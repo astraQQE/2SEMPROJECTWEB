@@ -1,12 +1,25 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Post
-from django.http import Http404
+from django.shortcuts import render
+from .models import Product, Review, Advertisement
 
 
-def post_detail(request, id):
-    post = get_object_or_404(Post,id=id,status=Post.Status.PUBLISHED)
-    return render(request,'blog/post/detail.html',{'post': post})
+def home(request):
+    # Популярные товары (фильтрация)
+    popular_products = Product.objects.filter(stock__gt=0).order_by('-created')[:6]
+    # Последние обзоры (сортировка)
+    latest_reviews = Review.objects.all().order_by('-created_at')[:3]
+    # Активные акции (агрегация)
+    active_ads = Advertisement.objects.filter(status='active')
 
-def post_list(request):
-    posts = Post.published.all()
-    return render(request,'blog/post/list.html',{'posts': posts})
+    return render(request, 'blog/index.html', {
+        'popular_products': popular_products,
+        'latest_reviews': latest_reviews,
+        'active_ads': active_ads
+    })
+
+def search(request):
+    query = request.GET.get('q')
+    if query:
+        results = Product.objects.filter(name__icontains=query)
+    else:
+        results = []
+    return render(request, 'blog/search.html', {'results': results})
