@@ -9,11 +9,36 @@
 </head>
 <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Главная</a></li>
-                <li><a href="{% url 'products' %}">Товары</a></li>
-            </ul>
+        <nav class="navbar">
+            <div class="nav-left">
+                <ul>
+                    <li><a href="{% url 'home' %}">Главная</a></li>
+                    <li><a href="{% url 'category_list' %}">Категории</a></li>  <!-- Добавлено -->
+                    <li><a href="{% url 'products' %}">Товары</a></li>
+                    <li><a href="{% url 'favorites' %}">Избранное</a></li>  <!-- Добавлено -->
+                    {% if user.is_staff %}
+                        <li><a href="{% url 'add_product' %}">Добавить товар</a></li>  <!-- Для админов -->
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="nav-right">
+                <!-- Форма поиска -->
+                <form class="search-form" action="{% url 'search' %}" method="get">
+                    <input type="text" name="q" placeholder="Поиск товаров...">
+                    <button type="submit">Найти</button>
+                </form>
+                
+                <!-- Кнопки авторизации -->
+                <div class="auth-buttons">
+                    {% if user.is_authenticated %}
+                        <span>Привет, {{ user.username }}!</span>
+                        <a href="{% url 'logout' %}" class="btn btn-outline-dark">Выйти</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-outline-dark">Войти</a>
+                        <a href="{% url 'register' %}" class="btn btn-dark">Регистрация</a>
+                    {% endif %}
+                </div>
+            </div>
         </nav>
     </header>
 

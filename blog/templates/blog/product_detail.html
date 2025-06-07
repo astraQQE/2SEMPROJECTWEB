@@ -86,18 +86,29 @@
                 <p>{{ product.description }}</p>
 
                 <!-- Отзывы -->
-                <h3>Отзывы</h3>
-                {% for review in reviews %}
-                    <div class="review-card">
-                        <p><strong>{{ review.user.username }}</strong></p>
+                <div class="reviews-section">
+                    <h3>Отзывы ({{ reviews_count }})</h3>  <!-- Отображаем количество -->
+                    
+                    {% for review in reviews %}
+                    <div class="review">
+                        <div class="review-header">
+                            <strong>{{ review.author }}</strong>
+                            <span class="rating">
+                                {% with ''|center:review.rating as range %}
+                                    {% for _ in range %}★{% endfor %}  <!-- Звезды по рейтингу -->
+                                {% endwith %}
+                                ({{ review.rating }}/5)  <!-- Числовой рейтинг -->
+                            </span>
+                            <span class="date">{{ review.created_at|date:"j E Y г. H:i" }}</span>
+                        </div>
                         <p>{{ review.text }}</p>
-                        <small>{{ review.created_at }}</small>
                     </div>
-                {% empty %}
-                    <p>Нет отзывов.</p>
-                {% endfor %}
+                    {% empty %}
+                    <p>Пока нет отзывов.</p>
+                    {% endfor %}
+                </div>
 
-                <!-- Похожие товары -->
+            
                 
             </div>
         </div>

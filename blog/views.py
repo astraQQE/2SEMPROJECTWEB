@@ -2,7 +2,10 @@ from django.shortcuts import render
 from .models import Product, Review, Advertisement,Category
 from django.db.models import Count, Avg
 from django.shortcuts import get_object_or_404
-
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from .models import Product
+from django.contrib.postgres.search import TrigramSimilarity
 
 def home(request):
     # 1. Популярные товары (используется filter() и order_by())
@@ -29,15 +32,7 @@ def home(request):
 
 
 # blog/views.py
-from django.shortcuts import render
-from .models import Product
 
-# blog/views.py
-from django.contrib.postgres.search import TrigramSimilarity
-
-# blog/views.py
-from django.shortcuts import render
-from .models import Product
 
 def search(request):
     query = request.GET.get('q')
@@ -63,6 +58,43 @@ def add_product(request):
     # Логика для добавления товара (только для админов)
     pass
 
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, 'Вы успешно вошли в систему.')
+                return redirect('home')
+            else:
+                messages.error(request, 'Неверное имя пользователя или пароль.')
+        else:
+            messages.error(request, 'Неверное имя пользователя или пароль.')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'blog/login.html', {'form': form})
+
+def register_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Регистрация прошла успешно!')
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'blog/register.html', {'form': form})
+
+@login_required
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'Вы успешно вышли из системы.')
+    return redirect('home')
+
 
 def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
@@ -77,6 +109,7 @@ def product_detail(request, product_id):
         'product': product,
         'reviews': reviews,
         'similar_products': similar_products,
+        'reviews_count': reviews.count(),
     })
 
 

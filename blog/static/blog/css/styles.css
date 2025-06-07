@@ -45,7 +45,7 @@ body {
 }
 
 .card:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .site-header {
@@ -59,6 +59,18 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.nav-left ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    gap: 20px;
+}
+
+.nav-right {
+    display: flex;
+    gap: 10px;
 }
 
 .navbar-nav {
