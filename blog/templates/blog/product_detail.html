@@ -73,8 +73,8 @@
                 <!-- Управление товаром -->
                 {% if request.user.is_staff %}
                     <div class="mt-4">
-                        <a href="{% url 'admin:blog_product_change' product.id %}" class="btn btn-secondary">Редактировать</a>
-                        <form method="POST" action="{% url 'product_delete' product.id %}" style="display: inline;">
+                        <a href="{% url 'product_edit' product_id=product.pk %}" class="btn btn-secondary">Редактировать</a>
+                        <form method="POST" action="{% url 'product_delete' product_id=product.pk %}" style="display: inline;">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-danger">Удалить</button>
                         </form>

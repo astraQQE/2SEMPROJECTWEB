@@ -1,16 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, Review, Advertisement,Category
 from django.db.models import Count, Avg
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
 from .models import Product,User
 from django.contrib.postgres.search import TrigramSimilarity
-from django.contrib.auth.forms import UserCreationForm
+from .forms import ProductForm
 
 def home(request):
     # 1. Популярные товары (используется filter() и order_by())
-    popular_products = Product.objects.filter(stock__gt=0).order_by('-created')[:6]
+    popular_products = Product.objects.filter(stock__gt=0).order_by('-created')
 
     # 2. Последние обзоры (используется order_by())
     latest_reviews = Review.objects.all().order_by('-created_at')[:3]
@@ -130,12 +129,38 @@ def product_delete(request, product_id):
 
     # Проверка прав доступа
     if not request.user.is_staff:
-        return redirect('home')  # Перенаправление на главную страницу
+        return redirect('home')
 
-    product.delete()
-    return redirect('home')
+    if request.method == 'POST':
+        # Удаляем только при POST-запросе (после подтверждения)
+        product.delete()
+        return redirect('home')
+
+    # Для GET-запроса показываем страницу подтверждения
+    return render(request, 'blog/product_confirm_delete.html', {
+        'product': product
+    })
 
 
+def product_edit(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+
+    # Проверка прав доступа
+    if not request.user.is_staff:
+        return redirect('home')
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('product_detail', product_id=product.id)
+    else:
+        form = ProductForm(instance=product)
+
+    return render(request, 'blog/product_edit.html', {
+        'form': form,
+        'product': product
+    })
 #@login_required
 def add_to_favorites(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
