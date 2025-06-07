@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth import views as auth_views  # Этот импорт обязателен!
 from . import views
 
 urlpatterns = [
@@ -13,4 +14,7 @@ urlpatterns = [
     path('<int:product_id>/', views.product_detail, name='product_detail'),
     path('search/', views.search, name='search'),
     path('blog/', views.post_list, name='post_list'),
+    path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('register/', views.register_view, name='register'),
 ]

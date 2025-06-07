@@ -4,8 +4,9 @@ from django.db.models import Count, Avg
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from .models import Product
+from .models import Product,User
 from django.contrib.postgres.search import TrigramSimilarity
+from django.contrib.auth.forms import UserCreationForm
 
 def home(request):
     # 1. Популярные товары (используется filter() и order_by())
@@ -77,16 +78,26 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'blog/login.html', {'form': form})
 
+
 def register_view(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
+
+            # Автоматический вход после регистрации
             login(request, user)
-            messages.success(request, 'Регистрация прошла успешно!')
+
+            # Добавляем пользователя в соответствующую группу
+            role = form.cleaned_data['role']
+            group_name = 'buyers' if role == 'buyer' else 'admins'
+            group = Group.objects.get(name=group_name)
+            user.groups.add(group)
+
             return redirect('home')
     else:
-        form = UserCreationForm()
+        form = RegisterForm()
+
     return render(request, 'blog/register.html', {'form': form})
 
 @login_required

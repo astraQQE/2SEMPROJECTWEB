@@ -26,6 +26,13 @@
                         <li><a href="{% url 'add_product' %}" class="btn btn-primary">Добавить товар</a></li>
                     {% endif %}
                 </ul>
+                
+                <div class="auth-buttons">
+                        <a href="{% url 'login' %}" class="btn btn-outline">Войти</a>
+                        <a href="{% url 'register' %}" class="btn btn-primary">Регистрация</a>
+
+                </div>
+                
                 <form class="search-form" method="GET" action="{% url 'search' %}">
                     <input type="text" name="q" placeholder="Поиск товаров..." required>
                     <button type="submit">Найти</button>
