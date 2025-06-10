@@ -7,7 +7,7 @@
     <title>{% block title %}Мой магазин{% endblock %}</title>
     {% block extra_head %}{% endblock %}
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/styles.css' %}">
 </head>
 <body>
     <header class="site-header">
@@ -23,7 +23,7 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    <li><a href="{% url 'favorites' %}">Избранное</a></li>
+                    <li><a href="{% url 'cart_view' %}">Корзина</a></li>
                     {% if user.is_staff %}
                         <li><a href="{% url 'add_product' %}" class="btn btn-primary">Добавить товар</a></li>
                     {% endif %}

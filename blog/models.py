@@ -1,3 +1,5 @@
+from email.policy import default
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
@@ -77,7 +79,7 @@ class Product(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name=_('Бренд'))
     stock = models.IntegerField(verbose_name=_('Количество на складе'))
     image = models.ImageField(upload_to='products/', blank=True, null=True, verbose_name=_('Изображение'))
-    created = models.DateTimeField(auto_now_add=True)  # Добавляем поле created
+    created = models.DateTimeField(auto_now_add=True)
 
 
     def average_rating(self):
@@ -115,12 +117,12 @@ class Order(models.Model):
         ('delivered', _('Доставлен')),
         ('canceled', _('Отменен')),
     ]
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('Пользователь'))
-    total_amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_('Общая сумма'))
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('Пользователь'),null=True,blank=True)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_('Общая сумма'),default = 0)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending', verbose_name=_('Статус'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Дата создания'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('Дата изменения'))
-    products = models.ManyToManyField(Product)  # ManyToManyField
+    products = models.ManyToManyField(Product)
 
     def __str__(self):
         return f"Заказ #{self.id} от {self.user.username}"

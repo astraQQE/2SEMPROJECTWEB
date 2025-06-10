@@ -23,7 +23,7 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    <li><a href="{% url 'favorites' %}">Избранное</a></li>
+                    <li><a href="{% url 'cart_view' %}">Корзина</a></li>
                     {% if user.is_staff %}
                         <li><a href="{% url 'add_product' %}" class="btn btn-secondary">Добавить товар</a></li>
                     {% endif %}
@@ -64,10 +64,10 @@
 
                 <!-- Кнопка "Добавить в избранное" -->
                 {% if user.is_authenticated %}
-                    <form method="POST" action="{% url 'add_to_favorites' product.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-secondary">Добавить в избранное</button>
-                    </form>
+                    <!-- templates/blog/product_detail.html -->
+                    <div class="container mt-4">
+                        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary">Добавить в корзину</a>
+                    </div>
                 {% endif %}
 
                 <!-- Управление товаром -->

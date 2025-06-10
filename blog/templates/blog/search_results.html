@@ -1,9 +1,7 @@
-<!-- blog/templates/blog/search_results.html -->
 {% extends 'base.html' %}
-{% load static %}  <!-- Добавьте эту строку в самое начало -->
+{% load static %}  
 
 {% block extra_head %}
-    <!-- Подключаем дополнительные CSS файлы -->
     <link rel="stylesheet" href="{% static 'blog/css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/product_detail.css' %}">
 {% endblock %}

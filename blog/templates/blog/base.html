@@ -13,11 +13,11 @@
             <div class="nav-left">
                 <ul>
                     <li><a href="{% url 'home' %}">Главная</a></li>
-                    <li><a href="{% url 'category_list' %}">Категории</a></li>  <!-- Добавлено -->
+                    <li><a href="{% url 'category_list' %}">Категории</a></li>  
                     <li><a href="{% url 'products' %}">Товары</a></li>
-                    <li><a href="{% url 'favorites' %}">Избранное</a></li>  <!-- Добавлено -->
+                    <li><a href="{% url 'cart_view' %}">Корзина</a></li> 
                     {% if user.is_staff %}
-                        <li><a href="{% url 'add_product' %}">Добавить товар</a></li>  <!-- Для админов -->
+                        <li><a href="{% url 'add_product' %}">Добавить товар</a></li>  
                     {% endif %}
                 </ul>
             </div>
